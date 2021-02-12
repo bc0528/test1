@@ -24,6 +24,7 @@ $(_=>{
  const codeReader = new ZXing.BrowserMultiFormatReader();
  $("body").on("show", "#page-scan2d", e=>{
     codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
+		alert("Result");
         if (result) {
             alert(JSON.stringify(result));
             //document.getElementById('result').textContent = result.text
