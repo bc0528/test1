@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 <script type="text/javascript" src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Base64/1.1.0/base64.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 (($)=> {
@@ -25,24 +24,23 @@ $(_=>{
  const codeReader = new ZXing.BrowserMultiFormatReader();
  $("body").on("show", "#page-scan2d", e=>{
     codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
+	    //err = null;
+		//result = {text: "HKEN:0BdofZTKVeyJtZXRhZGF0YSI6eyJ0eXBlRW4iOiJQdWJsaWMgVG9pbGV0IiwidHlwZVpoIjoi5YWs5buBIn0sIm5hbWVaaCI6IuWxr+mWgOeivOmgreWFrOW7gSAiLCJuYW1lRW4iOiJUdWVuIE11biBGZXJyeSBQaWVyIFB1YmxpYyBUb2lsZXQgIiwidHlwZSI6IklNUE9SVCIsImhhc2giOiI3YzdiMDlmNTU4Y2E3OTgxZmMyYzEwZDcyZTU2MDYzOTc1ZDBlODhlYTc0MjQyOTA0YTVkNTk5NzI0NDAzMzcwIn0="}
         if (err) {
                 //document.getElementById('result').textContent = err
         } else if (result) {
             if (!result.text.startsWith("HKEN:")) {
-				resturn;
+				return;
 			}
 			try {
 			var text = result.text.substring(14);
-			alert(text);
 			text = decodeURIComponent(escape(atob(text)));
-			alert(text);
 			var info = JSON.parse(text);
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
-			   $("#code", $(nav.topPage)).val(nav.topPage.data.text);
+			   $("#location", $(nav.topPage)).text(nav.topPage.data.info.nameZh);
 			   
 			});
 			} catch (e)  {
-			alert(e);
 			}
             //document.getElementById('result').textContent = result.text
         }
@@ -56,6 +54,7 @@ $(_=>{
 })(jQuery);
 </script>
 <style type="text/css">
+.page:not(#tab-main)  {color: #ffffff;}
 #tab-main .page__background {    background-color: #11b181; }
 section {position: relative;}
 #tab-main section::before {content: ""; position: absolute; top: 15rem; left: 0px; width: 100%; height: 100%; background: #ffffff; overflow: hidden; z-index: -99;}
@@ -81,6 +80,10 @@ a {text-decoration: none; color: inherit;}
 .list-item p {width: 100%; margin: 0px;}
 /*.toolbar--material__center {text-align: center;}*/
 .scanner video {width: 100%; height: 100%;}
+#page-result .page__background {background-color: #11b181;}
+#page-result .info {height: 100%;}
+#page-result .info .center {text-align: center;}
+#page-result .info strong {color: #ffff00;}
 </style>
 </head>
 <body>
@@ -92,7 +95,7 @@ a {text-decoration: none; color: inherit;}
 
   <ons-tabbar position="bottom">
     <ons-tab page="tab1.html" label="主頁" icon="md-home" active></ons-tab>
-    <ons-tab page="tab2.html" label="收件箱" icon="md-email"></ons-tab>
+    <ons-tab page="result.html" label="收件箱" icon="md-email"></ons-tab>
     <ons-tab page="tab3.html" label="設定" icon="md-settings"></ons-tab>
   </ons-tabbar>
 </ons-page>
@@ -187,6 +190,14 @@ a {text-decoration: none; color: inherit;}
 <template id="result.html">
   <ons-page id="page-result" class="scanner">
   <textarea id="code"></textarea>
+  <ons-row vertical-align="center" class="info">
+  <ons-col>
+  <p class="center"><small>你已進入場所</small></p>
+  <p class="center"><big><strong><span id="location">ABC</span></strong></big></p>
+  <p class="center">2021-02-10 22:00</p>
+  <p class="center"><ons-icon  class="far" icon="fa-check-circle" class="list-item__icon" size="10rem"></ion-icon></p>
+  </ons-col>
+  </ons-row>
   
   </ons-page>
 </template>
