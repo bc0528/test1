@@ -32,7 +32,7 @@ $(_=>{
 				resturn;
 			}
 			
-			var text = decodeURIComponent(result.text.substring(14));
+			var text = decodeURIComponent(escape(result.text.substring(14)));
 			var info = JSON.parse(text);
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
 			   $("#code", $(nav.topPage)).val(nav.topPage.data.text);
