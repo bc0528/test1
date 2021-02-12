@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+<script src="https://unpkg.com/@zxing/library@latest"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+(($)=> {
+$(_=>{
+ ons.enableDeviceBackButtonHandler();
+ ons.disableAutoStyling();
+
+ 
+  var nav = $("#nav")[0];
+ $("body").on("click", "[data-to]", e=>{
+    e.preventDefault();
+	nav.pushPage($(e.currentTarget).data("to"));
+ });
+ 
+ const codeReader = new ZXing.BrowserMultiFormatReader();
+ $("body").on("show", "#page-scan2d", e=>{
+    codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
+        if (result) {
+            console.log(result)
+            //document.getElementById('result').textContent = result.text
+        }
+        if (err && !(err instanceof ZXing.NotFoundException)) {
+                //document.getElementById('result').textContent = err
+              }
+            })
+ });
+  $("body").on("hide", "#page-scan2d", e=>{
+  codeReader.reset();
+});
+
+});
+})(jQuery);
+</script>
+<style type="text/css">
+#tab-main .page__background {    background-color: #11b181; }
+section {position: relative;}
+#tab-main section::before {content: ""; position: absolute; top: 15rem; left: 0px; width: 100%; height: 100%; background: #ffffff; overflow: hidden; z-index: -99;}
+.card {padding: 0px;}
+.card img {width: 100%;}
+.card__title {padding: 0.5rem 1rem; color: #11b188;}
+.card a:only-child {width: 100%; height: 100%; diplay: block;}
+.card a:only-child > span {display: block; line-height: 1.5rem;}
+#tab-main header {color: #ffffff; padding: 0.5rem 1rem; text-shadow: 0.1rem 0.1rem #006600;}
+h2{font-size: 0.8rem;}
+h1 {font-size: 1.5rem;}
+a {text-decoration: none; color: inherit;}
+:checked+.tabbar__button {color: #006600;}
+#btn-msg {padding: 1em; background: transparent; position: relative; }
+#btn-msg::before {content: ""; position: absolute; background-size: 10rem; background-color: #7fece3; background-blend-mode: multiply; transform: scaleX(-1); border-radius: 8px; background-repeat: no-repeat; top:0px; left: 0px; width: 100%; height: 100%; z-index: -10; background-image: url('https://thumbs.dreamstime.com/b/young-man-mask-gloves-side-view-virus-prevention-flat-vector-illustration-181810793.jpg');}
+.toolbar {background-color: #11b181; color: #ffffff;}
+.toolbar__title {color: #ffffff; text-shadow: 0.1rem 0.1rem #006600;}
+.toolbar .back-button {color: #ffffff;}
+.toolbar .back-button__icon {fill: #ffffff;}
+.page__background {background: #ffffff;}
+#tab-inbox .page__content p {position: absolute; width: 100%; text-align: center; top: 50%;}
+.list-item a {color: #006600; text-decoration: underline;}
+.list-item p {width: 100%; margin: 0px;}
+/*.toolbar--material__center {text-align: center;}*/
+.scanner video {width: 100%; height: 100%;}
+</style>
+</head>
+<body>
+<ons-navigator animation="none" id="nav" page="main.html"></ons-navigator>
+
+<template id="main.html">
+<ons-page id="page1.html">
+
+
+  <ons-tabbar position="bottom">
+    <ons-tab page="tab1.html" label="主頁" icon="md-home" active></ons-tab>
+    <ons-tab page="tab2.html" label="收件箱" icon="md-email"></ons-tab>
+    <ons-tab page="tab3.html" label="設定" icon="md-settings"></ons-tab>
+  </ons-tabbar>
+</ons-page>
+</template>
+
+
+<template id="tab1.html">
+  <ons-page id="tab-main">
+  <section>
+  <header>
+  <h2 class="title-2">2021-02-10, 星期三</h2>
+  <h1 class="title-1">記錄你的到訪</h1>
+  </header>
+
+   <ons-carousel swipeable auto-scroll overscrollable id="carousel" item-width="80%">
+    <ons-carousel-item>
+      <ons-card data-to="scan2d.html">
+      <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/7876810786d7efff5e285915c1da291a-1024x683.jpg"/>
+      <div class="title">按此進入</div>
+      </ons-card>
+    </ons-carousel-item>
+     <ons-carousel-item>
+      <ons-card>
+      <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/IMG_0823s.jpg"/>
+      <div class="title">按此進入</div>
+      </ons-card>
+    </ons-carousel-item>
+     <ons-carousel-item>
+      <ons-card>
+      <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/e03e3f41af0043eb033645464a3278c1.jpg"/>
+      <div class="title">按此進入</a></div>
+      </ons-card>
+    </ons-carousel-item>
+  </ons-carousel>
+  <ons-card id="btn-msg">
+  <a href="#">
+  <span><small>最後更新<span id="date-update">2021-02-10</span></small></span>
+  <span><strong>0</strong>次感染風險通知</span>
+  <span><small>更多詳細訊息</small></span>
+  </a>
+  
+  </ons-card>
+  </section>
+  </ons-page>
+  
+
+</template>
+
+
+<template id="tab2.html">
+  <ons-page id="tab-inbox">
+  <ons-toolbar>
+  <div class="center">收件箱</div>
+  </ons-toolbar>
+  <p>無訊息</p>
+  </ons-page>
+</template>
+
+<template id="tab3.html">
+  <ons-page id="tab-settings">
+  <ons-toolbar>
+  <div class="center">設定</div>
+  </ons-toolbar>
+  <ons-list modifier="noborder">
+    <ons-list-item tappable><div class="center"><p>每日更新</p>
+	<p><small>最後更新<span id="date-update">2021-02-10 21:59:58</span></small></p></div>
+	<div class="right"><ons-icon icon="md-refresh" class="list-item__icon"></div></ons-list-item>
+    <ons-list-item tappable>語言 <div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
+    <ons-list-item tappable>出行記錄<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
+    <ons-list-item tappable>個人資料收集聲明<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
+    <ons-list-item tappable>私隱政策<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
+    <ons-list-item tappable>條款及細則<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
+	<ons-list-item tappable>歡迎使用安心出行<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
+	<ons-list-item prevent-tap modifier="nodivider">關於<a href="#">安心出行</a><span class="right">版本1.1.4</span></ons-list-item>
+
+
+
+  </ons-page>
+</template>
+
+<template id="scan2d.html">
+  <ons-page id="page-scan2d" class="scanner">
+  <ons-toolbar>
+  <div class="left"> <ons-back-button></ons-back-button></div>
+
+  <div class="center">掃描二維碼</div>
+  </ons-toolbar>
+  <video id="video-2d"/>
+  </ons-page>
+</template>
+</body>
+</html>
