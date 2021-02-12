@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
 <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-<script src="https://unpkg.com/@zxing/library@latest"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Base64/1.1.0/base64.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 (($)=> {
 $(_=>{
@@ -31,9 +32,11 @@ $(_=>{
 				resturn;
 			}
 			
-			var text = result.text.substring(5);
-			nav.pushPage("result.html", {data: {text: text}}).then(_=>{
+			var text = result.text.substring(14);
+			var info = JSON.stringify(text);
+			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
 			   $("#code", $(nav.topPage)).val(nav.topPage.data.text);
+			   
 			});
             //document.getElementById('result').textContent = result.text
         }
