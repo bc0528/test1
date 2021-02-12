@@ -24,11 +24,17 @@ $(_=>{
  const codeReader = new ZXing.BrowserMultiFormatReader();
  $("body").on("show", "#page-scan2d", e=>{
     codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
-
         if (err) {
                 //document.getElementById('result').textContent = err
         } else if (result) {
-            alert(JSON.stringify(result));
+            if (!result.text.startsWith("HKEN:")) {
+				resturn;
+			}
+			
+			var text = result.text.substring(5);
+			nav.pushPage("result.html", {data: {text: text}}).then(_=>{
+			   $("#code", $(nav.topPage)).text(nav.topPage.data.text);
+			});
             //document.getElementById('result').textContent = result.text
         }
     });
@@ -166,6 +172,12 @@ a {text-decoration: none; color: inherit;}
   <div class="center">掃描二維碼</div>
   </ons-toolbar>
   <video id="video-2d"/>
+  </ons-page>
+</template>
+
+<template id="result.html">
+  <ons-page id="page-result" class="scanner">
+  <div id="code"></div>
   </ons-page>
 </template>
 </body>
