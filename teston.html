@@ -24,15 +24,14 @@ $(_=>{
  const codeReader = new ZXing.BrowserMultiFormatReader();
  $("body").on("show", "#page-scan2d", e=>{
     codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
-		alert("Result");
-        if (result) {
+
+        if (err) {
+                //document.getElementById('result').textContent = err
+        } else if (result) {
             alert(JSON.stringify(result));
             //document.getElementById('result').textContent = result.text
         }
-        if (err && !(err instanceof ZXing.NotFoundException)) {
-                //document.getElementById('result').textContent = err
-              }
-            })
+    });
  });
   $("body").on("hide", "#page-scan2d", e=>{
   codeReader.reset();
