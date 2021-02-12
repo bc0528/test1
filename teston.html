@@ -25,7 +25,7 @@ $(_=>{
  $("body").on("show", "#page-scan2d", e=>{
     codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
         if (result) {
-            console.log(result)
+            alert(JSON.stringify(result));
             //document.getElementById('result').textContent = result.text
         }
         if (err && !(err instanceof ZXing.NotFoundException)) {
