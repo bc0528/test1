@@ -31,15 +31,19 @@ $(_=>{
             if (!result.text.startsWith("HKEN:")) {
 				resturn;
 			}
-			
-			var text = result.text.substring(14));
+			try {
+			var text = result.text.substring(14);
 			alert(text);
 			text = decodeURIComponent(escape(text));
+			alert(text);
 			var info = JSON.parse(text);
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
 			   $("#code", $(nav.topPage)).val(nav.topPage.data.text);
 			   
 			});
+			} catch (e)  {
+			alert(e);
+			}
             //document.getElementById('result').textContent = result.text
         }
     });
