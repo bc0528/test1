@@ -32,8 +32,8 @@ $(_=>{
 				resturn;
 			}
 			
-			var text = result.text.substring(14);
-			var info = JSON.stringify(text);
+			var text = decodeURIComponent(result.text.substring(14));
+			var info = JSON.parse(text);
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
 			   $("#code", $(nav.topPage)).val(nav.topPage.data.text);
 			   
@@ -181,6 +181,7 @@ a {text-decoration: none; color: inherit;}
 <template id="result.html">
   <ons-page id="page-result" class="scanner">
   <textarea id="code"></textarea>
+  
   </ons-page>
 </template>
 </body>
