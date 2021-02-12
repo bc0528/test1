@@ -37,8 +37,9 @@ $(_=>{
 			text = decodeURIComponent(escape(atob(text)));
 			var info = JSON.parse(text);
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
-			   $("#location", $(nav.topPage)).text(nav.topPage.data.info.nameZh);
-			   
+			   var page = $(nav.topPage);
+			   $("#location", page).text(page[0].data.info.nameZh);
+			   $("ons-dialog", page)[0].show();
 			});
 			} catch (e)  {
 			}
@@ -48,6 +49,13 @@ $(_=>{
  });
   $("body").on("hide", "#page-scan2d", e=>{
   codeReader.reset();
+});
+
+$("body").on("show", "#page-result", e=>{
+    var page = $(nav.topPage);
+
+    $("ons-dialog", page)[0].show();
+
 });
 
 });
@@ -70,10 +78,11 @@ a {text-decoration: none; color: inherit;}
 :checked+.tabbar__button {color: #006600;}
 #btn-msg {padding: 1em; background: transparent; position: relative; }
 #btn-msg::before {content: ""; position: absolute; background-size: 10rem; background-color: #7fece3; background-blend-mode: multiply; transform: scaleX(-1); border-radius: 8px; background-repeat: no-repeat; top:0px; left: 0px; width: 100%; height: 100%; z-index: -10; background-image: url('https://thumbs.dreamstime.com/b/young-man-mask-gloves-side-view-virus-prevention-flat-vector-illustration-181810793.jpg');}
-.toolbar {background-color: #11b181; color: #ffffff;}
+.toolbar:not(.toolbar--transparent) {background-color: #11b181; color: #ffffff;}
 .toolbar__title {color: #ffffff; text-shadow: 0.1rem 0.1rem #006600;}
 .toolbar .back-button {color: #ffffff;}
 .toolbar .back-button__icon {fill: #ffffff;}
+.toolbar-button {color: #000000;}
 .page__background {background: #ffffff;}
 #tab-inbox .page__content p {position: absolute; width: 100%; text-align: center; top: 50%;}
 .list-item a {color: #006600; text-decoration: underline;}
@@ -84,6 +93,11 @@ a {text-decoration: none; color: inherit;}
 #page-result .info {height: 100%;}
 #page-result .info .center {text-align: center;}
 #page-result .info strong {color: #ffff00;}
+.action {width: 100%; position: absolute; bottom: 0px;}
+.action ons-button {display: block; margin: 1rem auto; }
+.button--large {width: 80%; max-width: 40rem; background-color: #ffff00; color: #000000;}
+.button--large:active {background-color: #cccc00;  opacity: inherit;}
+.dialog-container {background: #ffffff;}
 </style>
 </head>
 <body>
@@ -188,17 +202,35 @@ a {text-decoration: none; color: inherit;}
 </template>
 
 <template id="result.html">
-  <ons-page id="page-result" class="scanner">
-  <textarea id="code"></textarea>
+  <ons-page id="page-result">
+  <ons-dialog>
+    <ons-toolbar modifier="transparent">
+      <div class="right"><ons-toolbar-button><ons-icon icon="fa-times" ></ons-toolbar-button></div>
+    </ons-toolbar>
+    <ons-row vertical-align="center" class="info">
+    <ons-col>
+    <p class="center"><small>你已進入場所</small></p>
+    <p class="center"><big><span id="location">ABC</span></big></p>
+    <p class="center">2021-02-10 22:00</p>
+    </ons-col>
+  </ons-row>
+   <div class="action">
+     <ons-button modifier="large">是的，我現在要離開</ons-button>
+     <ons-button modifier="large">我己經離開了</ons-button>
+  </div>
+  </ons-dialog>
   <ons-row vertical-align="center" class="info">
   <ons-col>
   <p class="center"><small>你已進入場所</small></p>
   <p class="center"><big><strong><span id="location">ABC</span></strong></big></p>
   <p class="center">2021-02-10 22:00</p>
-  <p class="center"><ons-icon  class="far" icon="fa-check-circle" class="list-item__icon" size="10rem"></ion-icon></p>
+  <p class="center"><ons-icon class="far" icon="fa-check-circle" size="10rem"></ion-icon></p>
   </ons-col>
   </ons-row>
   
+  <div class="action">
+  <ons-button modifier="large">離開</ons-button>
+  </div>
   </ons-page>
 </template>
 </body>
