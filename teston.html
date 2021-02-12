@@ -34,7 +34,7 @@ $(_=>{
 			try {
 			var text = result.text.substring(14);
 			alert(text);
-			text = decodeURIComponent(escape(text));
+			text = decodeURIComponent(escape(atob(text)));
 			alert(text);
 			var info = JSON.parse(text);
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
