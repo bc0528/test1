@@ -3,25 +3,55 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
-<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-<script type="text/javascript" src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsenui.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsen-css-components.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/js/onsenui.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/@zxing/library@0.18.3/umd/index.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-onsenui@2.6.2"></script>
 <script type="text/javascript">
-(($)=> {
+(($, ons)=> {
 $(_=>{
- ons.enableDeviceBackButtonHandler();
+     Vue.use(VueOnsen);
+     var app = new Vue({
+	   el: "#app",
+	   template: "#nav",
+	   data() {
+			return {
+				info: {location: {}},
+				pageStack: [{template: '#main'}]
+			};
+	   },
+	   methods: {
+			go(page, replace) {
+				if (replace) {
+					this.pageStack.pop();
+				}
+				this.pageStack.push(page)
+			}
+	   }
+	});
+	
  ons.disableAutoStyling();
 
+  ons.ready(_=>{
+    ons.enableDeviceBackButtonHandler();
+	
+	//app.config.isCustomElement = tag=>tag.startsWith("ons-");
+	//app.mount("main");
+  });
+   
  
-  var nav = $("#nav")[0];
+ 
+ 
  $("body").on("click", "[data-to]", e=>{
     e.preventDefault();
 	nav.pushPage($(e.currentTarget).data("to"));
  });
  
  const codeReader = new ZXing.BrowserMultiFormatReader();
+
  $("body").on("show", "#page-scan2d", e=>{
     codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
 	    //err = null;
@@ -36,13 +66,20 @@ $(_=>{
 			var text = result.text.substring(14);
 			text = decodeURIComponent(escape(atob(text)));
 			var info = JSON.parse(text);
+			
+			codeReader.reset();
+
+			app.go({template: "#result", props: ["location", "popup"], onsNavigatorProps: {location: info, popup: true}}, false);
+
+			/*
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
-			   var page = $(nav.topPage);
-			   $("#location", page).text(page[0].data.info.nameZh);
-			   $("ons-dialog", page)[0].show();
-			});
+			   //$("#location", page).text(page[0].data.info.nameZh);
+			  // $("ons-dialog", page)[0].show();
+			  
+			});*/
 			} catch (e)  {
 			}
+			
             //document.getElementById('result').textContent = result.text
         }
     });
@@ -51,27 +88,21 @@ $(_=>{
   codeReader.reset();
 });
 
-$("body").on("show", "#page-result", e=>{
-    var page = $(nav.topPage);
 
-    $("ons-dialog", page)[0].show();
 
 });
-
-});
-})(jQuery);
+})(jQuery, ons);
 </script>
 <style type="text/css">
-.page:not(#tab-main)  {color: #ffffff;}
-#tab-main .page__background {    background-color: #11b181; }
-section {position: relative;}
-#tab-main section::before {content: ""; position: absolute; top: 15rem; left: 0px; width: 100%; height: 100%; background: #ffffff; overflow: hidden; z-index: -99;}
+#page-home .page__background {    background-color: #11b181; }
+section {position: relative; min-height: 100%; padding-bottom: 5rem;}
+#page-home section::before {content: ""; position: absolute; top: 15rem; left: 0px; width: 100%; height: calc(100% - 14rem); background: #ffffff; overflow: hidden; z-index: -99;}
 .card {padding: 0px;}
 .card img {width: 100%;}
 .card__title {padding: 0.5rem 1rem; color: #11b188;}
 .card a:only-child {width: 100%; height: 100%; diplay: block;}
 .card a:only-child > span {display: block; line-height: 1.5rem;}
-#tab-main header {color: #ffffff; padding: 0.5rem 1rem; text-shadow: 0.1rem 0.1rem #006600;}
+#page-home header {color: #ffffff; padding: 0.5rem 1rem; text-shadow: 0.1rem 0.1rem #006600;}
 h2{font-size: 0.8rem;}
 h1 {font-size: 1.5rem;}
 a {text-decoration: none; color: inherit;}
@@ -90,148 +121,172 @@ a {text-decoration: none; color: inherit;}
 /*.toolbar--material__center {text-align: center;}*/
 .scanner video {width: 100%; height: 100%;}
 #page-result .page__background {background-color: #11b181;}
-#page-result .info {height: 100%;}
-#page-result .info .center {text-align: center;}
-#page-result .info strong {color: #ffff00;}
+#page-result {color: #ffffff;}
+.result-info, .inbox-info {height: 100%;}
+.result-info .center, .inbox-info .center {text-align: center;}
+.result-info strong {color: #ffff00;}
 .action {width: 100%; position: absolute; bottom: 0px;}
-.action ons-button {display: block; margin: 1rem auto; }
+.action .button--large {display: block; margin: 1rem auto; }
 .button--large {width: 80%; max-width: 40rem; background-color: #ffff00; color: #000000;}
 .button--large:active {background-color: #cccc00;  opacity: inherit;}
 .dialog-container {background: #ffffff;}
+#popup-result section {padding-bottom: 8rem;}
 </style>
 </head>
 <body>
-<ons-navigator animation="none" id="nav" page="main.html"></ons-navigator>
-
-<template id="main.html">
-<ons-page id="page1.html">
+<div id="app">
+</div>
 
 
-  <ons-tabbar position="bottom">
-    <ons-tab page="tab1.html" label="主頁" icon="md-home" active></ons-tab>
-    <ons-tab page="result.html" label="收件箱" icon="md-email"></ons-tab>
-    <ons-tab page="tab3.html" label="設定" icon="md-settings"></ons-tab>
-  </ons-tabbar>
-</ons-page>
+<template id="nav" >
+<v-ons-navigator animation="none" :page-stack="pageStack" @push-page="console.log('Push: ', $event); pageStack.push($event)"
+  @replace-page="pageStack.pop(); pageStack.push($event)"></v-ons-navigator>
+</template>
+
+<template id="main">
+<v-ons-page >
+
+  <v-ons-tabbar position="bottom" :tabs="[
+  {label: '主頁', icon:'md-home', page: {template: '#home'}},
+    {label: '收件箱', icon:'md-email', page: {template: '#inbox', props: ['location', 'popup']}, props: {location: {nameZh: 'Test'}, popup: false}},
+  {label: '設定', icon:'md-settings', page: {template: '#settings'}}
+  ]" @push-page="$emit('push-page', $event)" >
+
+  </v-ons-tabbar>
+
+
+</v-ons-page>
 </template>
 
 
-<template id="tab1.html">
-  <ons-page id="tab-main">
+
+<template id="home">
+  <v-ons-page id="page-home">
   <section>
   <header>
   <h2 class="title-2">2021-02-10, 星期三</h2>
   <h1 class="title-1">記錄你的到訪</h1>
   </header>
 
-   <ons-carousel swipeable auto-scroll overscrollable id="carousel" item-width="80%">
-    <ons-carousel-item>
-      <ons-card data-to="scan2d.html">
+
+   <v-ons-carousel swipeable auto-scroll overscrollable id="carousel" item-width="80%">
+    <v-ons-carousel-item  >
+      <v-ons-card @click="$emit('push-page', {template: '#scan2d'})">
       <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/7876810786d7efff5e285915c1da291a-1024x683.jpg"/>
       <div class="title">按此進入</div>
-      </ons-card>
-    </ons-carousel-item>
-     <ons-carousel-item>
-      <ons-card>
+      </v-ons-card>
+    </v-ons-carousel-item>
+     <v-ons-carousel-item>
+      <v-ons-card>
       <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/IMG_0823s.jpg"/>
       <div class="title">按此進入</div>
-      </ons-card>
-    </ons-carousel-item>
-     <ons-carousel-item>
-      <ons-card>
+      </v-ons-card>
+    </v-ons-carousel-item>
+     <v-ons-carousel-item>
+      <v-ons-card>
       <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/e03e3f41af0043eb033645464a3278c1.jpg"/>
       <div class="title">按此進入</a></div>
-      </ons-card>
-    </ons-carousel-item>
-  </ons-carousel>
-  <ons-card id="btn-msg">
+      </v-ons-card>
+    </v-ons-carousel-item>
+  </v-ons-carousel>
+  <v-ons-card id="btn-msg">
   <a href="#">
   <span><small>最後更新<span id="date-update">2021-02-10</span></small></span>
   <span><strong>0</strong>次感染風險通知</span>
   <span><small>更多詳細訊息</small></span>
   </a>
   
-  </ons-card>
+  </v-ons-card>
   </section>
-  </ons-page>
+  </v-ons-page>
   
 
 </template>
 
 
-<template id="tab2.html">
-  <ons-page id="tab-inbox">
-  <ons-toolbar>
+<template id="inbox">
+  <v-ons-page>
+  <v-ons-toolbar>
   <div class="center">收件箱</div>
-  </ons-toolbar>
-  <p>無訊息</p>
-  </ons-page>
+  </v-ons-toolbar>
+   <v-ons-row vertical-align="center" class="inbox-info">
+  <v-ons-col class="center">
+  無訊息
+  </v-ons-col>
+  </v-ons-row>
+  </v-ons-page>
 </template>
 
-<template id="tab3.html">
-  <ons-page id="tab-settings">
-  <ons-toolbar>
+<template id="settings">
+  <v-ons-page>
+  <v-ons-toolbar>
   <div class="center">設定</div>
-  </ons-toolbar>
-  <ons-list modifier="noborder">
-    <ons-list-item tappable><div class="center"><p>每日更新</p>
+  </v-ons-toolbar>
+  <v-ons-list modifier="noborder">
+    <v-ons-list-item tappable><div class="center"><p>每日更新</p>
 	<p><small>最後更新<span id="date-update">2021-02-10 21:59:58</span></small></p></div>
-	<div class="right"><ons-icon icon="md-refresh" class="list-item__icon"></div></ons-list-item>
-    <ons-list-item tappable>語言 <div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
-    <ons-list-item tappable>出行記錄<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
-    <ons-list-item tappable>個人資料收集聲明<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
-    <ons-list-item tappable>私隱政策<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
-    <ons-list-item tappable>條款及細則<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
-	<ons-list-item tappable>歡迎使用安心出行<div class="right"><ons-icon icon="md-chevron-right" class="list-item__icon"></div></ons-list-item>
-	<ons-list-item prevent-tap modifier="nodivider">關於<a href="#">安心出行</a><span class="right">版本1.1.4</span></ons-list-item>
+	<div class="right"><v-ons-icon icon="md-refresh" class="list-item__icon"></div></v-ons-list-item>
+    <v-ons-list-item tappable>語言 <div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
+    <v-ons-list-item tappable>出行記錄<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
+    <v-ons-list-item tappable>個人資料收集聲明<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
+    <v-ons-list-item tappable>私隱政策<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
+    <v-ons-list-item tappable>條款及細則<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
+	<v-ons-list-item tappable>歡迎使用安心出行<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
+	<v-ons-list-item prevent-tap modifier="nodivider">關於<a href="#">安心出行</a><span class="right">版本1.1.4</span></v-ons-list-item>
 
 
 
-  </ons-page>
+  </v-ons-page>
 </template>
 
-<template id="scan2d.html">
-  <ons-page id="page-scan2d" class="scanner">
-  <ons-toolbar>
-  <div class="left"> <ons-back-button></ons-back-button></div>
+<template id="scan2d">
+  <v-ons-page class="scanner" id="page-scan2d">
+  <v-ons-toolbar>
+  <div class="left"> <v-ons-back-button></v-ons-back-button></div>
 
   <div class="center">掃描二維碼</div>
-  </ons-toolbar>
+  </v-ons-toolbar>
   <video id="video-2d"/>
-  </ons-page>
+  </v-ons-page>
 </template>
 
-<template id="result.html">
-  <ons-page id="page-result">
-  <ons-dialog>
-    <ons-toolbar modifier="transparent">
-      <div class="right"><ons-toolbar-button><ons-icon icon="fa-times" ></ons-toolbar-button></div>
-    </ons-toolbar>
-    <ons-row vertical-align="center" class="info">
-    <ons-col>
+<template id="result">
+  <v-ons-page id="page-result" :popup="false" @show="console.log('show');popup=true">
+  
+  <v-ons-dialog :visible="popup" id="popup-result" >
+    <v-ons-toolbar modifier="transparent">
+      <div class="right"><v-ons-toolbar-button @click="console.log('click');popup=false"><v-ons-icon icon="fa-times" ></v-ons-toolbar-button></div>
+    </v-ons-toolbar>
+	<section>
+    <v-ons-row vertical-align="center" class="result-info">
+    <v-ons-col>
     <p class="center"><small>你已進入場所</small></p>
-    <p class="center"><big><span id="location">ABC</span></big></p>
+    <p class="center"><big>{{location.nameZh}}</big></p>
     <p class="center">2021-02-10 22:00</p>
-    </ons-col>
-  </ons-row>
+    </v-ons-col>
+  </v-ons-row>
    <div class="action">
-     <ons-button modifier="large">是的，我現在要離開</ons-button>
-     <ons-button modifier="large">我己經離開了</ons-button>
+     <v-ons-button modifier="large" @click="popup=false">是的，我現在要離開</v-ons-button>
+     <v-ons-button modifier="large" @click="popup=false">我己經離開了</v-ons-button>
   </div>
-  </ons-dialog>
-  <ons-row vertical-align="center" class="info">
-  <ons-col>
+  </section>
+  </v-ons-dialog>
+  <section>
+  <v-ons-row vertical-align="center" class="result-info">
+  <v-ons-col>
   <p class="center"><small>你已進入場所</small></p>
-  <p class="center"><big><strong><span id="location">ABC</span></strong></big></p>
+  <p class="center"><big><strong>{{location.nameZh}}</span></strong></big></p>
   <p class="center">2021-02-10 22:00</p>
-  <p class="center"><ons-icon class="far" icon="fa-check-circle" size="10rem"></ion-icon></p>
-  </ons-col>
-  </ons-row>
+  <p class="center"><v-ons-icon class="far" icon="fa-check-circle" size="10rem"></ion-icon></p>
+  </v-ons-col>
+  </v-ons-row>
   
   <div class="action">
-  <ons-button modifier="large">離開</ons-button>
+  <v-ons-button modifier="large" @click="popup = false; $emit('push-page', {template: '#main'})">離開</v-ons-button>
   </div>
-  </ons-page>
+  </section>
+  </v-ons-page>
 </template>
+
 </body>
 </html>
