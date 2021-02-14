@@ -76,7 +76,7 @@ $(_=>{
 			var info = JSON.parse(text);
 			
 
-			app.go({template: "#result", props: ["location", "popup"], onsNavigatorProps: {location: info, popup: true}}, true);
+			app.go({template: "#main", props: ["location", "popup"], onsNavigatorProps: {location: info, popup: true}}, true);
 
 			/*
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
