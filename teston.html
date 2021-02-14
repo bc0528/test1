@@ -13,7 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-onsenui@2.6.2"></script>
 <script type="text/javascript">
-if(false && 'serviceWorker' in navigator) {
+if('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
       .then(() => console.log("Service Worker Registered"))
       .catch(e => console.log(e));
@@ -271,7 +271,7 @@ a {text-decoration: none; color: inherit;}
 
   <div class="center">掃描二維碼</div>
   </v-ons-toolbar>
-  <div class="mask"><div><div class="viewfinder"><div></div><div></div><div></div><div></div></div></div><div class="caption">掃描二維碼</div></div>
+  <div class="mask"><div><div class="viewfinder"><div></div><div></div><div></div><div></div></div></div><span class="caption">掃描二維碼</span></div>
   <video id="video-2d"/>
   </v-ons-page>
 </template>
