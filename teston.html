@@ -22,7 +22,7 @@ $(_=>{
 	   data() {
 			return {
 				info: {location: {}},
-				pageStack: [{template: '#main'}]
+				pageStack: [{template: '#result', props: {popup: true}}]
 			};
 	   },
 	   methods: {
@@ -102,7 +102,7 @@ $(_=>{
 </script>
 <style type="text/css">
 #page-home .page__background {    background-color: #11b181; }
-section {position: relative; min-height: 100%; padding-bottom: 5rem;}
+section {position: relative; min-height: 100%; padding-bottom: 5rem; box-sizing: border-box;}
 #page-home section::before {content: ""; position: absolute; top: 15rem; left: 0px; width: 100%; height: calc(100% - 14rem); background: #ffffff; overflow: hidden; z-index: -99;}
 .card {padding: 0px;}
 .card img {width: 100%;}
