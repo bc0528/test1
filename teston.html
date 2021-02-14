@@ -3,6 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+<title>安心R痕</title>
+<link rel="manifest" href="manifest.json"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsenui.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsen-css-components.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/js/onsenui.min.js"></script>
@@ -25,6 +27,12 @@ $(_=>{
 	   },
 	   methods: {
 			go(page, replace) {
+			    if (this.pageStack.length > 0) {
+				    var last = this.pageStack[this.pageStack.length - 1].template;
+					if (last == page.template) {
+					   return;
+					}
+				}
 				if (replace) {
 					this.pageStack.pop();
 				}
@@ -51,11 +59,11 @@ $(_=>{
  });
  
  const codeReader = new ZXing.BrowserMultiFormatReader();
-
  $("body").on("show", "#page-scan2d", e=>{
-    codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
-	    //err = null;
-		//result = {text: "HKEN:0BdofZTKVeyJtZXRhZGF0YSI6eyJ0eXBlRW4iOiJQdWJsaWMgVG9pbGV0IiwidHlwZVpoIjoi5YWs5buBIn0sIm5hbWVaaCI6IuWxr+mWgOeivOmgreWFrOW7gSAiLCJuYW1lRW4iOiJUdWVuIE11biBGZXJyeSBQaWVyIFB1YmxpYyBUb2lsZXQgIiwidHlwZSI6IklNUE9SVCIsImhhc2giOiI3YzdiMDlmNTU4Y2E3OTgxZmMyYzEwZDcyZTU2MDYzOTc1ZDBlODhlYTc0MjQyOTA0YTVkNTk5NzI0NDAzMzcwIn0="}
+
+   codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
+	    err = null;
+	    result = {text: "HKEN:0BdofZTKVeyJtZXRhZGF0YSI6eyJ0eXBlRW4iOiJQdWJsaWMgVG9pbGV0IiwidHlwZVpoIjoi5YWs5buBIn0sIm5hbWVaaCI6IuWxr+mWgOeivOmgreWFrOW7gSAiLCJuYW1lRW4iOiJUdWVuIE11biBGZXJyeSBQaWVyIFB1YmxpYyBUb2lsZXQgIiwidHlwZSI6IklNUE9SVCIsImhhc2giOiI3YzdiMDlmNTU4Y2E3OTgxZmMyYzEwZDcyZTU2MDYzOTc1ZDBlODhlYTc0MjQyOTA0YTVkNTk5NzI0NDAzMzcwIn0="}
         if (err) {
                 //document.getElementById('result').textContent = err
         } else if (result) {
@@ -67,9 +75,8 @@ $(_=>{
 			text = decodeURIComponent(escape(atob(text)));
 			var info = JSON.parse(text);
 			
-			codeReader.reset();
 
-			app.go({template: "#result", props: ["location", "popup"], onsNavigatorProps: {location: info, popup: true}}, false);
+			app.go({template: "#result", props: ["location", "popup"], onsNavigatorProps: {location: info, popup: true}}, true);
 
 			/*
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
@@ -171,7 +178,7 @@ a {text-decoration: none; color: inherit;}
 
    <v-ons-carousel swipeable auto-scroll overscrollable id="carousel" item-width="80%">
     <v-ons-carousel-item  >
-      <v-ons-card @click="$emit('push-page', {template: '#scan2d'})">
+      <v-ons-card @click="$emit('push-page', {template: '#scan2d', key: 1})">
       <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/7876810786d7efff5e285915c1da291a-1024x683.jpg"/>
       <div class="title">按此進入</div>
       </v-ons-card>
@@ -251,9 +258,9 @@ a {text-decoration: none; color: inherit;}
 </template>
 
 <template id="result">
-  <v-ons-page id="page-result" :popup="false" @show="console.log('show');popup=true">
+  <v-ons-page id="page-result">
   
-  <v-ons-dialog :visible="popup" id="popup-result" >
+  <v-ons-dialog :visible.sync="popup" id="popup-result" >
     <v-ons-toolbar modifier="transparent">
       <div class="right"><v-ons-toolbar-button @click="console.log('click');popup=false"><v-ons-icon icon="fa-times" ></v-ons-toolbar-button></div>
     </v-ons-toolbar>
@@ -282,7 +289,7 @@ a {text-decoration: none; color: inherit;}
   </v-ons-row>
   
   <div class="action">
-  <v-ons-button modifier="large" @click="popup = false; $emit('push-page', {template: '#main'})">離開</v-ons-button>
+  <v-ons-button modifier="large" @click="$emit('replace-page', {template: '#main'})">離開</v-ons-button>
   </div>
   </section>
   </v-ons-page>
