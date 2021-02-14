@@ -22,7 +22,7 @@ $(_=>{
 	   data() {
 			return {
 				info: {location: {}},
-				pageStack: [{template: '#result', props: {popup: true}}]
+				pageStack: [{template: '#main', props: {popup: true}}]
 			};
 	   },
 	   methods: {
@@ -76,7 +76,7 @@ $(_=>{
 			var info = JSON.parse(text);
 			
 
-			app.go({template: "#main", props: ["location", "popup"], onsNavigatorProps: {location: info, popup: true}}, true);
+			app.go({template: "#result", props: ["location", "popup"], onsNavigatorProps: {location: info, popup: true}}, true);
 
 			/*
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
