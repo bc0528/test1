@@ -13,6 +13,11 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-onsenui@2.6.2"></script>
 <script type="text/javascript">
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log("Service Worker Registered"))
+      .catch(e => console.log(e));
+ }
 (($, ons)=> {
 $(_=>{
      Vue.use(VueOnsen);
