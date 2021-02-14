@@ -3,7 +3,7 @@
   "short_name": "安心R痕",
   "start_url": "teston.html",
   "display": "standalone",
-  "theme_color": "#ef4e2a",
+  "theme_color": "#11b181",
   "background_color": "#fff",
   "icons": [{
     "src": "https://via.placeholder.com/192x192",
