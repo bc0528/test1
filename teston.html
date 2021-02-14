@@ -13,7 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-onsenui@2.6.2"></script>
 <script type="text/javascript">
-if('serviceWorker' in navigator) {
+if(false && 'serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
       .then(() => console.log("Service Worker Registered"))
       .catch(e => console.log(e));
@@ -64,7 +64,7 @@ $(_=>{
  });
  
  const codeReader = new ZXing.BrowserMultiFormatReader();
- $("body").on("show", "#page-scan2d", e=>{
+ $("body").on("show", ".page-scan2d", e=>{
 
    codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
 	    //err = null;
@@ -96,7 +96,7 @@ $(_=>{
         }
     });
  });
-  $("body").on("hide", "#page-scan2d", e=>{
+  $("body").on("hide", ".page-scan2d", e=>{
   codeReader.reset();
 });
 
@@ -106,34 +106,33 @@ $(_=>{
 })(jQuery, ons);
 </script>
 <style type="text/css">
-#page-home .page__background {    background-color: #11b181; }
+.page-home .page__background {    background-color: #11b181; }
 section {position: relative; min-height: 100%; padding-bottom: 5rem; box-sizing: border-box;}
-#page-home section::before {content: ""; position: absolute; top: 15rem; left: 0px; width: 100%; height: calc(100% - 14rem); background: #ffffff; overflow: hidden; z-index: -99;}
+.page-home section::before {content: ""; position: absolute; top: 15rem; left: 0px; width: 100%; height: calc(100% - 14rem); background: #ffffff; overflow: hidden; z-index: -99;}
 .card {padding: 0px;}
 .card img {width: 100%;}
 .card__title {padding: 0.5rem 1rem; color: #11b188;}
 .card a:only-child {width: 100%; height: 100%; diplay: block;}
 .card a:only-child > span {display: block; line-height: 1.5rem;}
-#page-home header {color: #ffffff; padding: 0.5rem 1rem; text-shadow: 0.1rem 0.1rem #006600;}
+.page-home header {color: #ffffff; padding: 0.5rem 1rem; text-shadow: 0.1rem 0.1rem #006600;}
 h2{font-size: 0.8rem;}
 h1 {font-size: 1.5rem;}
 a {text-decoration: none; color: inherit;}
 :checked+.tabbar__button {color: #006600;}
-#btn-msg {padding: 1em; background: transparent; position: relative; }
-#btn-msg::before {content: ""; position: absolute; background-size: 10rem; background-color: #7fece3; background-blend-mode: multiply; transform: scaleX(-1); border-radius: 8px; background-repeat: no-repeat; top:0px; left: 0px; width: 100%; height: 100%; z-index: -10; background-image: url('https://thumbs.dreamstime.com/b/young-man-mask-gloves-side-view-virus-prevention-flat-vector-illustration-181810793.jpg');}
+.btn-msg {padding: 1em; background: transparent; position: relative; }
+.btn-msg::before {content: ""; position: absolute; background-size: 10rem; background-color: #7fece3; background-blend-mode: multiply; transform: scaleX(-1); border-radius: 8px; background-repeat: no-repeat; top:0px; left: 0px; width: 100%; height: 100%; z-index: -10; background-image: url('https://thumbs.dreamstime.com/b/young-man-mask-gloves-side-view-virus-prevention-flat-vector-illustration-181810793.jpg');}
 .toolbar:not(.toolbar--transparent) {background-color: #11b181; color: #ffffff;}
 .toolbar__title {color: #ffffff; text-shadow: 0.1rem 0.1rem #006600;}
 .toolbar .back-button {color: #ffffff;}
 .toolbar .back-button__icon {fill: #ffffff;}
 .toolbar-button {color: #000000;}
 .page__background {background: #ffffff;}
-#tab-inbox .page__content p {position: absolute; width: 100%; text-align: center; top: 50%;}
+/*#tab-inbox .page__content p {position: absolute; width: 100%; text-align: center; top: 50%;}*/
 .list-item a {color: #006600; text-decoration: underline;}
 .list-item p {width: 100%; margin: 0px;}
-/*.toolbar--material__center {text-align: center;}*/
 .scanner video {width: 100%; height: 100%;}
-#page-result .page__background {background-color: #11b181;}
-#page-result {color: #ffffff;}
+.page-result .page__background {background-color: #11b181;}
+.page-result {color: #ffffff;}
 .result-info, .inbox-info {height: 100%;}
 .result-info .center, .inbox-info .center {text-align: center;}
 .result-info strong {color: #ffff00;}
@@ -142,7 +141,14 @@ a {text-decoration: none; color: inherit;}
 .button--large {width: 80%; max-width: 40rem; background-color: #ffff00; color: #000000;}
 .button--large:active {background-color: #cccc00;  opacity: inherit;}
 .dialog-container {background: #ffffff;}
-#popup-result section {padding-bottom: 8rem;}
+.popup-result section {padding-bottom: 8rem;}
+.page-scan2d .page__background {background-color: #000000;}
+.mask  {position: absolute;  top:0px; left: 0px; width: 100%; height: 100%; z-index: 10; border: 5rem solid rgba(0,0,0,0.9); box-sizing: border-box;}
+.mask div {width: 5rem; height: 5rem; position: absolute; box-sizing: border-box; border: 0em #11b181 solid;}
+.mask div:nth-child(1), .mask div:nth-child(2) {top: -1rem; border-top-width: 1rem;}
+.mask div:nth-child(3), .mask div:nth-child(4) {bottom: -1rem; border-bottom-width: 1rem;}
+.mask div:nth-child(1), .mask div:nth-child(3) {left: -1rem; border-left-width: 1rem;}
+.mask div:nth-child(2), .mask div:nth-child(4) {right: -1rem; border-right-width: 1rem;}
 </style>
 </head>
 <body>
@@ -173,7 +179,7 @@ a {text-decoration: none; color: inherit;}
 
 
 <template id="home">
-  <v-ons-page id="page-home">
+  <v-ons-page class="page-home">
   <section>
   <header>
   <h2 class="title-2">2021-02-10, 星期三</h2>
@@ -201,7 +207,7 @@ a {text-decoration: none; color: inherit;}
       </v-ons-card>
     </v-ons-carousel-item>
   </v-ons-carousel>
-  <v-ons-card id="btn-msg">
+  <v-ons-card class="btn-msg">
   <a href="#">
   <span><small>最後更新<span id="date-update">2021-02-10</span></small></span>
   <span><strong>0</strong>次感染風險通知</span>
@@ -252,20 +258,21 @@ a {text-decoration: none; color: inherit;}
 </template>
 
 <template id="scan2d">
-  <v-ons-page class="scanner" id="page-scan2d">
+  <v-ons-page class="scanner page-scan2d">
   <v-ons-toolbar>
   <div class="left"> <v-ons-back-button></v-ons-back-button></div>
 
   <div class="center">掃描二維碼</div>
   </v-ons-toolbar>
+  <div class="mask"><div></div><div></div><div></div><div></div></div>
   <video id="video-2d"/>
   </v-ons-page>
 </template>
 
 <template id="result">
-  <v-ons-page id="page-result">
+  <v-ons-page class="page-result">
   
-  <v-ons-dialog :visible.sync="popup" id="popup-result" >
+  <v-ons-dialog :visible.sync="popup" class="popup-result" >
     <v-ons-toolbar modifier="transparent">
       <div class="right"><v-ons-toolbar-button @click="console.log('click');popup=false"><v-ons-icon icon="fa-times" ></v-ons-toolbar-button></div>
     </v-ons-toolbar>
