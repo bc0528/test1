@@ -62,8 +62,8 @@ $(_=>{
  $("body").on("show", "#page-scan2d", e=>{
 
    codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
-	    err = null;
-	    result = {text: "HKEN:0BdofZTKVeyJtZXRhZGF0YSI6eyJ0eXBlRW4iOiJQdWJsaWMgVG9pbGV0IiwidHlwZVpoIjoi5YWs5buBIn0sIm5hbWVaaCI6IuWxr+mWgOeivOmgreWFrOW7gSAiLCJuYW1lRW4iOiJUdWVuIE11biBGZXJyeSBQaWVyIFB1YmxpYyBUb2lsZXQgIiwidHlwZSI6IklNUE9SVCIsImhhc2giOiI3YzdiMDlmNTU4Y2E3OTgxZmMyYzEwZDcyZTU2MDYzOTc1ZDBlODhlYTc0MjQyOTA0YTVkNTk5NzI0NDAzMzcwIn0="}
+	    //err = null;
+	   //result = {text: "HKEN:0BdofZTKVeyJtZXRhZGF0YSI6eyJ0eXBlRW4iOiJQdWJsaWMgVG9pbGV0IiwidHlwZVpoIjoi5YWs5buBIn0sIm5hbWVaaCI6IuWxr+mWgOeivOmgreWFrOW7gSAiLCJuYW1lRW4iOiJUdWVuIE11biBGZXJyeSBQaWVyIFB1YmxpYyBUb2lsZXQgIiwidHlwZSI6IklNUE9SVCIsImhhc2giOiI3YzdiMDlmNTU4Y2E3OTgxZmMyYzEwZDcyZTU2MDYzOTc1ZDBlODhlYTc0MjQyOTA0YTVkNTk5NzI0NDAzMzcwIn0="}
         if (err) {
                 //document.getElementById('result').textContent = err
         } else if (result) {
