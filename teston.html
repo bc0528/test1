@@ -143,19 +143,19 @@ a {text-decoration: none; color: inherit;}
 .dialog-container {background: #ffffff;}
 .popup-result section {padding-bottom: 8rem;}
 .page-scan2d .page__background {background-color: #000000;}
-.mask {position: absolute;  top:0px; left: 0px; width: 100%; height: 100%; z-index: 10; box-sizing: border-box; display: grid; grid-template-rows: auto 70vmin auto; grid-template-areas: 'a' 'b' 'c';}
+.mask {position: absolute;  top:0px; left: 0px; width: 100%; height: 100%; z-index: 10; box-sizing: border-box; display: grid; grid-template-rows: auto 60vmin auto; grid-template-areas: 'a' 'b' 'c';}
 .mask::before {content: ''; grid-area: a;}
-.mask::after {content: ''; grid-area: c;}
-.mask > div {grid-area: b; display: grid; grid-template-areas: 'd e f';  grid-template-columns: auto 70vmin auto; position: relative;}
+.mask .caption {grid-area: c; color: #ffffff; padding: 3rem; text-align: center;}
+.mask > div {grid-area: b; display: grid; grid-template-areas: 'd e f';  grid-template-columns: auto 60vmin auto; position: relative;}
 .mask > div::before {content: ''; grid-area: d;}
 .mask > div::after {content: ''; grid-area: f;}
-.mask::before, .mask::after, .mask > div::before, .mask> div::after {background-color: rgba(0,0,0, 0.7);}
+.mask::before, .mask .caption, .mask > div::before, .mask> div::after {background-color: rgba(0,0,0, 0.7);}
 .viewfinder {position: relative;}
-.viewfinder div {width: 5rem; height: 5rem; position: absolute; box-sizing: border-box; border: 0em #11b181 solid;}
-.viewfinder div:nth-child(1), .viewfinder div:nth-child(2) {top: -0.8rem; border-top-width: 0.8rem;}
-.viewfinder div:nth-child(3), .viewfinder div:nth-child(4) {bottom: -0.8rem; border-bottom-width: 0.8rem;}
-.viewfinder div:nth-child(1), .viewfinder div:nth-child(3) {left: -0.8rem; border-left-width: 0.8rem;}
-.viewfinder div:nth-child(2), .viewfinder div:nth-child(4) {right: -0.8rem; border-right-width: 0.8rem;}
+.viewfinder div {width: 3rem; height: 3rem; position: absolute; box-sizing: border-box; border: 0em #11b181 solid; z-index: 10;}
+.viewfinder div:nth-child(1), .viewfinder div:nth-child(2) {top: -0.6rem; border-top-width: 0.6rem;}
+.viewfinder div:nth-child(3), .viewfinder div:nth-child(4) {bottom: -0.6rem; border-bottom-width: 0.6rem;}
+.viewfinder div:nth-child(1), .viewfinder div:nth-child(3) {left: -0.6rem; border-left-width: 0.6em;}
+.viewfinder div:nth-child(2), .viewfinder div:nth-child(4) {right: -0.6rem; border-right-width: 0.6rem;}
 </style>
 </head>
 <body>
@@ -271,7 +271,7 @@ a {text-decoration: none; color: inherit;}
 
   <div class="center">掃描二維碼</div>
   </v-ons-toolbar>
-  <div class="mask"><div><div class="viewfinder"><div></div><div></div><div></div><div></div></div></div></div>
+  <div class="mask"><div><div class="viewfinder"><div></div><div></div><div></div><div></div></div></div><div class="caption">掃描二維碼</div></div>
   <video id="video-2d"/>
   </v-ons-page>
 </template>
