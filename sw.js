@@ -21,7 +21,8 @@ self.addEventListener('install', function(e) {
 		'https://cdn.jsdelivr.net/npm/vue-onsenui@2.6.2',
 		'home_enter.jpg',
 		'home_taxi.jpg',
-		'home_confirmed.jpg'
+		'home_confirmed.jpg',
+		'msg_bg.jpg'
       ]);
     })
   );
