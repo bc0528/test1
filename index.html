@@ -170,6 +170,7 @@ a {text-decoration: none; color: inherit;}
 .viewfinder div:nth-child(2), .viewfinder div:nth-child(4) {right: -0.6rem; border-right-width: 0.6rem;}
 .card__title .right {float: right;}
 .card__content {position: absolute; bottom: 0px; left: 0px; padding: 5rem 2rem; color: #ffffff; text-shadow: 0.1rem 0.1rem #000000;}
+.card__content h2 {margin: 0px;}
 </style>
 </head>
 <body>
@@ -213,21 +214,21 @@ a {text-decoration: none; color: inherit;}
       <v-ons-card @click="$emit('push-page', {template: '#scan2d', key: 1})">
       <img src="home_enter.jpg"/>
       <div class="title">按此進入<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></div>
-	  <div class="content"><h1>進入</h1>掃描安心R行二維碼以記錄到訪</div>
+	  <div class="content"><h2>進入</h2>掃描安心R行二維碼以記錄到訪</div>
       </v-ons-card>
     </v-ons-carousel-item>
      <v-ons-carousel-item>
       <v-ons-card>
       <img src="home_taxi.jpg"/>
       <div class="title">按此進入<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></div>
-      <div class="content"><h1>上車</h1>乘搭的士時請掃描車廂內的車牌</div>
+      <div class="content"><h2>上車</h2>乘搭的士時請掃描車廂內的車牌</div>
 	 </v-ons-card>
     </v-ons-carousel-item>
      <v-ons-carousel-item>
       <v-ons-card>
       <img src="home_confirmed.jpg"/>
       <div class="title">按此進入<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></div>
-      <div class="content"><h1>報告確診或初步確診</h1>用戶如被確診或初步確診，須上載其出行記錄給防護中心,協助個案調查及提供感染風險通知給其他相關用戶</div>
+      <div class="content"><h2>報告確診或初步確診</h2>用戶如被確診或初步確診，須上載其出行記錄給防護中心,協助個案調查及提供感染風險通知給其他相關用戶</div>
 	  </v-ons-card>
     </v-ons-carousel-item>
   </v-ons-carousel>
