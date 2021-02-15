@@ -108,7 +108,7 @@ $(_=>{
 			var info = JSON.parse(text);
 			
 
-			app.go({template: "#result", props: ["location", "popup"], onsNavigatorProps: {location: info, popup: true}}, true);
+			app.go({template: "#result", props: ["location", "popup", "checkout"], onsNavigatorProps: {location: info, popup: true, checkout: ["Y"]}}, true);
 
 			/*
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
@@ -209,7 +209,7 @@ a {text-decoration: none; color: inherit;}
 
   <v-ons-tabbar position="bottom" :tabs="[
   {label: '主頁', icon:'md-home', page: {template: '#home'}},
-    {label: '收件箱', icon:'md-email', page: {template: '#inbox', props: ['location', 'popup']}, props: {location: {nameZh: 'Test'}, popup: true}},
+    {label: '收件箱', icon:'md-email', page: {template: '#inbox', props: ['location', 'popup', 'checkout']}, props: {location: {nameZh: 'Test'}, popup: false, checkout: ['Y']}},
   {label: '設定', icon:'md-settings', page: {template: '#settings'}}
   ]" @push-page="$emit('push-page', $event)" >
 
@@ -358,7 +358,7 @@ a {text-decoration: none; color: inherit;}
 
   </section>
     <div class="action">
-  <div class="center"><small><v-ons-checkbox></v-ons-checkbox><label>{{$date('yyyy-MM-dd HH:mm', 4 * 3600 * 1000)}}自動離開</label></small></div>
+  <div class="center"><small><v-ons-checkbox value="Y" v-model="checkout"></v-ons-checkbox><label>{{$date('yyyy-MM-dd HH:mm', 4 * 3600 * 1000)}}自動離開</label></small></div>
 
   <v-ons-button modifier="large" @click="$emit('replace-page', {template: '#main'})">離開</v-ons-button>
   </div>
