@@ -132,7 +132,7 @@ h1 {font-size: 1.5rem;}
 a {text-decoration: none; color: inherit;}
 :checked+.tabbar__button {color: #006600;}
 .btn-msg {padding: 1em; background: transparent; position: relative; }
-.btn-msg::before {content: ""; position: absolute; background-size: 10rem; background-color: #7fece3; background-blend-mode: multiply; transform: scaleX(-1); border-radius: 8px; background-repeat: no-repeat; top:0px; left: 0px; width: 100%; height: 100%; z-index: -10; background-image: url('https://thumbs.dreamstime.com/b/young-man-mask-gloves-side-view-virus-prevention-flat-vector-illustration-181810793.jpg');}
+.btn-msg::before {content: ""; position: absolute; background-size: 10rem; background-color: #46e89d; opacity: 0.5; background-blend-mode: multiply; transform: scaleX(-1); border-radius: 8px; background-repeat: no-repeat; top:0px; left: 0px; width: 100%; height: 100%; z-index: -10; background-image: url('https://thumbs.dreamstime.com/b/young-man-mask-gloves-side-view-virus-prevention-flat-vector-illustration-181810793.jpg');}
 .toolbar:not(.toolbar--transparent) {background-color: #11b181; color: #ffffff;}
 .toolbar__title {color: #ffffff; text-shadow: 0.1rem 0.1rem #006600;}
 .toolbar .back-button {color: #ffffff;}
@@ -168,6 +168,8 @@ a {text-decoration: none; color: inherit;}
 .viewfinder div:nth-child(3), .viewfinder div:nth-child(4) {bottom: -0.6rem; border-bottom-width: 0.6rem;}
 .viewfinder div:nth-child(1), .viewfinder div:nth-child(3) {left: -0.6rem; border-left-width: 0.6em;}
 .viewfinder div:nth-child(2), .viewfinder div:nth-child(4) {right: -0.6rem; border-right-width: 0.6rem;}
+.card__title .right {float: right;}
+.card__content {position: absolute; bottom: 0px; left: 0px; padding: 5rem 2rem; color: #ffffff; text-shadow: 0.1rem 0.1rem #000000;}
 </style>
 </head>
 <body>
@@ -209,21 +211,24 @@ a {text-decoration: none; color: inherit;}
    <v-ons-carousel swipeable auto-scroll overscrollable id="carousel" item-width="80%">
     <v-ons-carousel-item  >
       <v-ons-card @click="$emit('push-page', {template: '#scan2d', key: 1})">
-      <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/7876810786d7efff5e285915c1da291a-1024x683.jpg"/>
-      <div class="title">按此進入</div>
+      <img src="home_enter.jpg"/>
+      <div class="title">按此進入<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></div>
+	  <div class="content"><h1>進入</h1>掃描安心R行二維碼以記錄到訪</div>
       </v-ons-card>
     </v-ons-carousel-item>
      <v-ons-carousel-item>
       <v-ons-card>
-      <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/IMG_0823s.jpg"/>
-      <div class="title">按此進入</div>
-      </v-ons-card>
+      <img src="home_taxi.jpg"/>
+      <div class="title">按此進入<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></div>
+      <div class="content"><h1>上車</h1>乘搭的士時請掃描車廂內的車牌</div>
+	 </v-ons-card>
     </v-ons-carousel-item>
      <v-ons-carousel-item>
       <v-ons-card>
-      <img src="https://www.kashiwaya.org/e/magazine/wp-content/uploads/2019/05/e03e3f41af0043eb033645464a3278c1.jpg"/>
-      <div class="title">按此進入</a></div>
-      </v-ons-card>
+      <img src="home_confirmed.jpg"/>
+      <div class="title">按此進入<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></div>
+      <div class="content"><h1>報告確診或初步確診</h1>用戶如被確診或初步確診，須上載其出行記錄給防護中心,協助個案調查及提供感染風險通知給其他相關用戶</div>
+	  </v-ons-card>
     </v-ons-carousel-item>
   </v-ons-carousel>
   <v-ons-card class="btn-msg">
@@ -263,12 +268,12 @@ a {text-decoration: none; color: inherit;}
     <v-ons-list-item tappable><div class="center"><p>每日更新</p>
 	<p><small>最後更新<span id="date-update">2021-02-10 21:59:58</span></small></p></div>
 	<div class="right"><v-ons-icon icon="md-refresh" class="list-item__icon"></div></v-ons-list-item>
-    <v-ons-list-item tappable>語言 <div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
-    <v-ons-list-item tappable>出行記錄<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
-    <v-ons-list-item tappable>個人資料收集聲明<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
-    <v-ons-list-item tappable>私隱政策<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
-    <v-ons-list-item tappable>條款及細則<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
-	<v-ons-list-item tappable>歡迎使用安心出行<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"></div></v-ons-list-item>
+    <v-ons-list-item tappable>語言 <div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></v-ons-list-item>
+    <v-ons-list-item tappable>出行記錄<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></v-ons-list-item>
+    <v-ons-list-item tappable>個人資料收集聲明<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></v-ons-list-item>
+    <v-ons-list-item tappable>私隱政策<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></v-ons-list-item>
+    <v-ons-list-item tappable>條款及細則<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></v-ons-list-item>
+	<v-ons-list-item tappable>歡迎使用安心出行<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></v-ons-list-item>
 	<v-ons-list-item prevent-tap modifier="nodivider">關於<a href="#">安心R行</a><span class="right">版本1.1.4</span></v-ons-list-item>
 
 

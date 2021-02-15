@@ -18,7 +18,10 @@ self.addEventListener('install', function(e) {
 		'https://unpkg.com/@zxing/library@0.18.3/umd/index.min.js',
 		'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js',
 		'https://cdn.jsdelivr.net/npm/vue@2.6.12',
-		'https://cdn.jsdelivr.net/npm/vue-onsenui@2.6.2'
+		'https://cdn.jsdelivr.net/npm/vue-onsenui@2.6.2',
+		'home_enter.jpg',
+		'home_taxi.jpg',
+		'home_confirmed.jpg'
       ]);
     })
   );
