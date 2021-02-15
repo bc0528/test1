@@ -209,7 +209,7 @@ a {text-decoration: none; color: inherit;}
 
   <v-ons-tabbar position="bottom" :tabs="[
   {label: '主頁', icon:'md-home', page: {template: '#home'}},
-    {label: '收件箱', icon:'md-email', page: {template: '#result', props: ['location', 'popup']}, props: {location: {nameZh: 'Test'}, popup: true}},
+    {label: '收件箱', icon:'md-email', page: {template: '#inbox', props: ['location', 'popup']}, props: {location: {nameZh: 'Test'}, popup: true}},
   {label: '設定', icon:'md-settings', page: {template: '#settings'}}
   ]" @push-page="$emit('push-page', $event)" >
 
