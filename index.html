@@ -167,8 +167,9 @@ a {text-decoration: none; color: inherit;}
 .action {width: 100%; position: absolute; bottom: 0px;}
 .action .button--large {display: block; margin: 1rem auto; }
 .button--large {width: 80%; max-width: 40rem; background-color: #ffdd00; color: #000000; border-radius: 2rem;}
+.button--large:active {background-color: #ddcc00;  opacity: inherit;}
 .button--large.other {color: #ffffff; text-shadow: 0.1rem 0.1rem #000000; background-color: #11b181;}
-.button--large:active {background-color: #cccc00;  opacity: inherit;}
+.button--large.other:active {background-color: #03865f;}
 .dialog-container {background: #ffffff;}
 .popup-result section {padding-bottom: 8rem;}
 .page-scan2d .page__background {background-color: #000000;}
@@ -209,7 +210,7 @@ a {text-decoration: none; color: inherit;}
 
   <v-ons-tabbar position="bottom" :tabs="[
   {label: '主頁', icon:'md-home', page: {template: '#home'}},
-    {label: '收件箱', icon:'md-email', page: {template: '#inbox', props: ['location', 'popup', 'checkout']}, props: {location: {nameZh: 'Test'}, popup: false, checkout: ['Y']}},
+    {label: '收件箱', icon:'md-email', page: {template: '#inbox', props: ['location', 'popup', 'checkout']}, props: {location: {nameZh: 'Test'}, popup: true, checkout: ['Y']}},
   {label: '設定', icon:'md-settings', page: {template: '#settings'}}
   ]" @push-page="$emit('push-page', $event)" >
 
