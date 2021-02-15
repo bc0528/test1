@@ -10,7 +10,8 @@ self.addEventListener('install', function(e) {
       // If the request for any of these resources fails, _none_ of the resources will be
       // added to the cache.
       return cache.addAll([
-        'teston.html',
+	    '/',
+        'index.html',
         'manifest.json',
         'https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsenui.min.css',
         'https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsen-css-components.min.css',
