@@ -336,11 +336,12 @@ a {text-decoration: none; color: inherit;}
 
     </v-ons-col>
   </v-ons-row>
+   </section>
    <div class="action">
      <v-ons-button modifier="large" @click="popup=false">是的，我現在要離開</v-ons-button>
      <v-ons-button modifier="large" @click="popup=false" class="other">我己經離開了</v-ons-button>
   </div>
-  </section>
+ 
   </v-ons-dialog>
   <v-ons-toolbar modifier="transparent" inline="true">
   </v-ons-toolbar>
@@ -354,12 +355,13 @@ a {text-decoration: none; color: inherit;}
   </v-ons-col>
   </v-ons-row>
   
-  <div class="action">
+
+  </section>
+    <div class="action">
   <div class="center"><small><v-ons-checkbox></v-ons-checkbox><label>{{$date('yyyy-MM-dd HH:mm', 4 * 3600 * 1000)}}自動離開</label></small></div>
 
   <v-ons-button modifier="large" @click="$emit('replace-page', {template: '#main'})">離開</v-ons-button>
   </div>
-  </section>
   </v-ons-page>
 </template>
 
