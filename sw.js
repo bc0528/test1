@@ -1,4 +1,4 @@
-/* Version: 1.0.3 */
+/* Version: 1.0.4 */
 self.addEventListener('install', function(e) {
   console.log('install');
 
