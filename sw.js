@@ -11,7 +11,7 @@ self.addEventListener('install', function(e) {
       // added to the cache.
       return cache.addAll([
 	    '.',
-       // 'manifest.json',
+        'manifest.json',
         'https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsenui.min.css',
         'https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsen-css-components.min.css',
 		'https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/ionicons/css/ionicons.min.css',
