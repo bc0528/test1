@@ -292,7 +292,7 @@ a {text-decoration: none; color: inherit;}
   </v-ons-toolbar>
   <v-ons-list modifier="noborder">
     <v-ons-list-item tappable><div class="center"><p>每日更新</p>
-	<p><small>最後更新<span id="date-update">{{$date('yyyy-MM-dd HH:mm:ss', 5 * 24 * 3600 * 1000)}}</span></small></p></div>
+	<p><small>最後更新<span id="date-update">{{$date('yyyy-MM-dd HH:mm:ss', - 5 * 24 * 3600 * 1000)}}</span></small></p></div>
 	<div class="right"><v-ons-icon icon="md-refresh" class="list-item__icon"></div></v-ons-list-item>
     <v-ons-list-item tappable>語言 <div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></v-ons-list-item>
     <v-ons-list-item tappable>R行記錄<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></v-ons-list-item>
