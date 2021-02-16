@@ -31,6 +31,9 @@ if('serviceWorker' in navigator) {
       .then(() => console.log("Service Worker Registered"))
       .catch(e => console.log(e));
  }
+if (window.screen && window.screen.orientation && window.screen.orientation.lock) {
+    window.screen.orientation.lock("portrait");
+}
 (($, ons)=> {
 $(_=>{
      var myPlugin = {
