@@ -36,7 +36,7 @@ if('serviceWorker' in navigator) {
  }
 (($, ons)=> {
 $(_=>{
-     //mobileConsole.show();
+     mobileConsole.show();
      var myPlugin = {
 	     install(Vue, options) {
 		     Vue.prototype.$date = (fmt, diff) =>{
@@ -56,7 +56,7 @@ $(_=>{
          routes: [
             {path: "/", component: {template: "#main"}},
             {path: "/scan2d", component: {template: "#scan2d"}},
-            {path: "/result", component: {template: "#result"}}
+            {path: "/result", props: {popup: true, location: {}, checkout: ["Y"]}, component: {template: "#result", props: ["popup", "location", "checkout"]}}
 
          ]
      });
