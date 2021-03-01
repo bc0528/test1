@@ -74,23 +74,8 @@ $(_=>{
 	   store: store,
 	   data() {
 			return {
-				info: {location: {}},
-				pageStack: [{template: '#main', props: {popup: true}}]
+
 			};
-	   },
-	   methods: {
-			go(page, replace) {
-			    if (this.pageStack.length > 0) {
-				    var last = this.pageStack[this.pageStack.length - 1].template;
-					if (last == page.template) {
-					   return;
-					}
-				}
-				if (replace) {
-					this.pageStack.pop();
-				}
-				this.pageStack.push(page)
-			}
 	   }
 	});
 	
@@ -102,14 +87,6 @@ $(_=>{
 	//app.config.isCustomElement = tag=>tag.startsWith("ons-");
 	//app.mount("main");
   });
-   
- 
- 
- 
- $("body").on("click", "[data-to]", e=>{
-    e.preventDefault();
-	nav.pushPage($(e.currentTarget).data("to"));
- });
  
  const codeReader = new ZXing.BrowserMultiFormatReader();
  $("body").on("show", ".page-scan2d", e=>{
@@ -130,7 +107,7 @@ $(_=>{
 			
 			Vue.set(store, "location", info);
 			//app.go({template: "#result", props: ["location", "popup", "checkout"], onsNavigatorProps: {location: info, popup: true, checkout: ["Y"]}}, true);
-			router.push({path: "/result"});
+			router.replace({path: "/result"});
 			/*
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
 			   //$("#location", page).text(page[0].data.info.nameZh);
