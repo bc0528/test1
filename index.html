@@ -323,7 +323,7 @@ a {text-decoration: none; color: inherit;}
 <template id="scan2d">
   <v-ons-page class="scanner page-scan2d">
   <v-ons-toolbar>
-  <div class="left"> <v-ons-back-button></v-ons-back-button></div>
+  <div class="left"> <v-ons-back-button @click="$router.back()"></v-ons-back-button></div>
 
   <div class="center">掃描二維碼</div>
   </v-ons-toolbar>
