@@ -60,10 +60,49 @@ $(_=>{
               nameZh: "test"
          }
      };
+	
+     const codeReader = new ZXing.BrowserMultiFormatReader();
+
      var router = new VueRouter({
          routes: [
             {path: "/", component: {template: "#main"}},
-            {path: "/scan2d", component: {template: "#scan2d"}},
+            {path: "/scan2d", component: {
+		    				template: "#scan2d",
+		    				mounted () {
+							codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
+	    						//err = null;
+	   						//result = {text: "HKEN:0BdofZTKVeyJtZXRhZGF0YSI6eyJ0eXBlRW4iOiJQdWJsaWMgVG9pbGV0IiwidHlwZVpoIjoi5YWs5buBIn0sIm5hbWVaaCI6IuWxr+mWgOeivOmgreWFrOW7gSAiLCJuYW1lRW4iOiJUdWVuIE11biBGZXJyeSBQaWVyIFB1YmxpYyBUb2lsZXQgIiwidHlwZSI6IklNUE9SVCIsImhhc2giOiI3YzdiMDlmNTU4Y2E3OTgxZmMyYzEwZDcyZTU2MDYzOTc1ZDBlODhlYTc0MjQyOTA0YTVkNTk5NzI0NDAzMzcwIn0="}
+							if (err) {
+								//document.getElementById('result').textContent = err
+							} else if (result) {
+								if (!result.text.startsWith("HKEN:")) {
+									return;
+								}
+								try {
+									var text = result.text.substring(14);
+									text = decodeURIComponent(escape(atob(text)));
+									var info = JSON.parse(text);
+
+									Vue.set(store, "location", info);
+									//app.go({template: "#result", props: ["location", "popup", "checkout"], onsNavigatorProps: {location: info, popup: true, checkout: ["Y"]}}, true);
+									router.replace({path: "/result"});
+									/*
+									nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
+									   //$("#location", page).text(page[0].data.info.nameZh);
+									  // $("ons-dialog", page)[0].show();
+
+									});*/
+								} catch (e)  {
+								}
+
+							    //document.getElementById('result').textContent = result.text
+							}
+   						 });
+						},
+		    				beforeDestroy (to, from, next) {
+							  codeReader.reset();
+						}
+					 }},
             {path: "/result", props: {popup: true, location: {}, checkout: ["Y"]}, component: {template: "#result", props: ["popup", "location", "checkout"]}}
 
          ]
@@ -88,41 +127,11 @@ $(_=>{
 	//app.mount("main");
   });
  
- const codeReader = new ZXing.BrowserMultiFormatReader();
  $("body").on("show", ".page-scan2d", e=>{
 
-   codeReader.decodeFromVideoDevice(null, 'video-2d', (result, err) => {
-	    //err = null;
-	   //result = {text: "HKEN:0BdofZTKVeyJtZXRhZGF0YSI6eyJ0eXBlRW4iOiJQdWJsaWMgVG9pbGV0IiwidHlwZVpoIjoi5YWs5buBIn0sIm5hbWVaaCI6IuWxr+mWgOeivOmgreWFrOW7gSAiLCJuYW1lRW4iOiJUdWVuIE11biBGZXJyeSBQaWVyIFB1YmxpYyBUb2lsZXQgIiwidHlwZSI6IklNUE9SVCIsImhhc2giOiI3YzdiMDlmNTU4Y2E3OTgxZmMyYzEwZDcyZTU2MDYzOTc1ZDBlODhlYTc0MjQyOTA0YTVkNTk5NzI0NDAzMzcwIn0="}
-        if (err) {
-                //document.getElementById('result').textContent = err
-        } else if (result) {
-            if (!result.text.startsWith("HKEN:")) {
-				return;
-			}
-			try {
-			var text = result.text.substring(14);
-			text = decodeURIComponent(escape(atob(text)));
-			var info = JSON.parse(text);
-			
-			Vue.set(store, "location", info);
-			//app.go({template: "#result", props: ["location", "popup", "checkout"], onsNavigatorProps: {location: info, popup: true, checkout: ["Y"]}}, true);
-			router.replace({path: "/result"});
-			/*
-			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
-			   //$("#location", page).text(page[0].data.info.nameZh);
-			  // $("ons-dialog", page)[0].show();
-			  
-			});*/
-			} catch (e)  {
-			}
-			
-            //document.getElementById('result').textContent = result.text
-        }
-    });
+   
  });
   $("body").on("hide", ".page-scan2d", e=>{
-  codeReader.reset();
 });
 
 
