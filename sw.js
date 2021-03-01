@@ -1,4 +1,4 @@
-/* Version: 1.0.6 */
+/* Version: 1.0.7 */
 var cacheId = "on9";
 self.addEventListener('install', function(e) {
   console.log('install');
