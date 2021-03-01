@@ -36,7 +36,7 @@ if('serviceWorker' in navigator) {
  }
 (($, ons)=> {
 $(_=>{
-     mobileConsole.show();
+     //mobileConsole.show();
      var myPlugin = {
 	     install(Vue, options) {
 		     Vue.prototype.$date = (fmt, diff) =>{
@@ -54,7 +54,7 @@ $(_=>{
 	 Vue.use(myPlugin);
      var router = new VueRouter({
          routes: [
-            {path: "/", component: {template: "<div>Hello</div>"}}
+            {path: "/", component: {template: "#main"}}
          ]
      });
      var app = new Vue({
