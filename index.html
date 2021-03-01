@@ -52,6 +52,11 @@ $(_=>{
 	 };
     // Vue.use(VueOnsen);
 	 Vue.use(myPlugin);
+     var store = {
+         location: {
+              nameZh: "test"
+         }
+     };
      var router = new VueRouter({
          routes: [
             {path: "/", component: {template: "#main"}},
@@ -63,6 +68,7 @@ $(_=>{
      var app = new Vue({
 	   el: "#app",
 	   router: router,
+	   store: store,
 	   data() {
 			return {
 				info: {location: {}},
@@ -343,7 +349,7 @@ a {text-decoration: none; color: inherit;}
     <v-ons-row vertical-align="center" class="result-info">
     <v-ons-col>
     <div class="center"><small>你已進入場所</small></div>
-    <h1 class="center">{{location.nameZh}}</center></h1>
+    <h1 class="center">{{$store.location.nameZh}}</center></h1>
     <div class="center"><small>{{$date('yyyy-MM-dd HH:mm')}}</small></div>
 	<h2 class="center">你現在離開嗎？</h2>
     <div class="center"><small>{{$date('yyyy-MM-dd HH:mm', 4 * 3600 * 1000)}}自動離開</small></div>
@@ -363,7 +369,7 @@ a {text-decoration: none; color: inherit;}
   <v-ons-row vertical-align="center" class="result-info">
   <v-ons-col>
   <p class="center"><small>你已進入場所</small></p>
-  <p class="center"><h1><center><strong>{{location.nameZh}}</strong></center></h1></p>
+  <p class="center"><h1><center><strong>{{$store.location.nameZh}}</strong></center></h1></p>
   <p class="center">{{$date('yyyy-MM-dd HH:mm')}}</p>
   <p class="center"><v-ons-icon class="far" icon="fa-check-circle" size="10rem"></ion-icon></p>
   </v-ons-col>
