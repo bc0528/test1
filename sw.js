@@ -29,7 +29,7 @@ self.addEventListener('install', function(e) {
 		'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js',
 		'https://cdn.jsdelivr.net/npm/jquery-dateformat@1.0.4/dist/jquery-dateformat.min.js',
 		'https://cdn.jsdelivr.net/npm/vue@2.6.12',
-		'https://cdn.jsdelivr.net/npm/vue-router@4.0.4/dist/vue-router.global.prod.js',
+		'https://cdn.jsdelivr.net/npm/vue-router@3.5.1/dist/vue-router.min.js',
 		'https://cdn.jsdelivr.net/npm/vue-onsenui@2.6.2',
 		'home_enter.jpg',
 		'home_taxi.jpg',
