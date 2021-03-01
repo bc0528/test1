@@ -54,7 +54,10 @@ $(_=>{
 	 Vue.use(myPlugin);
      var router = new VueRouter({
          routes: [
-            {path: "/", component: {template: "#main"}}
+            {path: "/", component: {template: "#main"}},
+            {path: "/scan2d", component: {template: "#scan2d"}},
+            {path: "/result", component: {template: "#result"}}
+
          ]
      });
      var app = new Vue({
@@ -117,8 +120,8 @@ $(_=>{
 			var info = JSON.parse(text);
 			
 
-			app.go({template: "#result", props: ["location", "popup", "checkout"], onsNavigatorProps: {location: info, popup: true, checkout: ["Y"]}}, true);
-
+			//app.go({template: "#result", props: ["location", "popup", "checkout"], onsNavigatorProps: {location: info, popup: true, checkout: ["Y"]}}, true);
+			router.push({path: "/result"});
 			/*
 			nav.pushPage("result.html", {data: {text: text, info: info}}).then(_=>{
 			   //$("#location", page).text(page[0].data.info.nameZh);
@@ -246,7 +249,7 @@ a {text-decoration: none; color: inherit;}
 
    <v-ons-carousel swipeable auto-scroll overscrollable id="carousel" item-width="80%">
     <v-ons-carousel-item  >
-      <v-ons-card @click="$emit('push-page', {template: '#scan2d', key: 1})">
+      <v-ons-card @click="$router.push('/scan2d')">
       <img src="home_enter.jpg"/>
       <div class="title">按此進入<div class="right"><v-ons-icon icon="md-chevron-right" class="list-item__icon"/></div></div>
 	  <div class="content"><h2>進入</h2>掃描安心R行二維碼以記錄到訪</div>
