@@ -128,7 +128,7 @@ $(_=>{
 			text = decodeURIComponent(escape(atob(text)));
 			var info = JSON.parse(text);
 			
-
+			Vue.set(store, "location", info);
 			//app.go({template: "#result", props: ["location", "popup", "checkout"], onsNavigatorProps: {location: info, popup: true, checkout: ["Y"]}}, true);
 			router.push({path: "/result"});
 			/*
