@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/js-mobile-console@0.4.0/style/mobile-console.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsenui.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/css/onsen-css-components.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/js-mobile-console@0.4.0/mobile-console.min.js"></script>
+<!--script src="https://cdn.jsdelivr.net/npm/js-mobile-console@0.4.0/mobile-console.min.js"></script-->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/onsen/2.11.2/js/onsenui.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/@zxing/library@0.18.3/umd/index.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -36,7 +36,7 @@ if('serviceWorker' in navigator) {
  }
 (($, ons)=> {
 $(_=>{
-     mobileConsole.show();
+     //mobileConsole.show();
      var myPlugin = {
 	     install(Vue, options) {
 		     Vue.prototype.$date = (fmt, diff) =>{
