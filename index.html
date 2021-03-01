@@ -46,8 +46,11 @@ $(_=>{
 				}
 			    return $.format.date(d, fmt);
 			 };
-			 
-		     Vue.protype.$store = options.store;
+		     Vue.mixin({
+    			created: function () {
+				this.$store = this.$options.store;
+    			}
+		     });
 		 }
 	 };
     // Vue.use(VueOnsen);
