@@ -80,7 +80,9 @@ $(_=>{
 								}
 								try {
 									var text = result.text.substring(14);
+                                                                        console.log("Text1:", text);
 									text = decodeURIComponent(escape(atob(text)));
+                                                                        cobsole.log("Text2:", text);
 									var info = JSON.parse(text);
 
 									Vue.set(store, "location", info);
