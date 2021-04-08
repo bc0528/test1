@@ -361,7 +361,7 @@ a {text-decoration: none; color: inherit;}
   <v-ons-row vertical-align="center" class="result-info">
   <v-ons-col>
   <p class="center"><small>你已進入場所</small></p>
-  <p class="center"><h1><center><strong>{{$store.location.nameZh? $store.location.nameEn: $store.location.nameZh}}</strong></center></h1></p>
+  <p class="center"><h1><center><strong>{{$store.location.nameZh == null? $store.location.nameEn: $store.location.nameZh}}</strong></center></h1></p>
   <p class="center">{{$date('yyyy-MM-dd HH:mm')}}</p>
   <p class="center"><v-ons-icon class="far" icon="fa-check-circle" size="10rem"></ion-icon></p>
   </v-ons-col>
